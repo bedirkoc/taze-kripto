@@ -1,15 +1,28 @@
 "use client";
+import dynamic from "next/dynamic";
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import CryptoTable from "./components/CryptoTable";
-import Navbar from "./components/Navbar";
-import CryptoNews from "./components/CryptoNews";
-import StarredCoinsSlider from "./components/StarredCoinSlider";
+
+const DynamicCryptoTable = dynamic(() => import("./components/CryptoTable"), {
+  ssr: false,
+});
+const DynamicNavbar = dynamic(() => import("./components/Navbar"), {
+  ssr: false,
+});
+const DynamicStarredCoinSlider = dynamic(
+  () => import("./components/StarredCoinSlider"),
+  {
+    ssr: false,
+  }
+);
+const DynamicCryptoNews = dynamic(() => import("./components/CryptoNews"), {
+  ssr: false,
+});
 
 const Home = () => {
   return (
     <div>
-      <Navbar />
+      <DynamicNavbar />
 
       <Box
         sx={{
@@ -20,12 +33,12 @@ const Home = () => {
         }}
       >
         <Box sx={{ width: "50%" }}>
-          <StarredCoinsSlider />
+          <DynamicStarredCoinSlider />
           <Typography variant="h5" sx={{ mt: 5 }}>
             Kripto Listesi
           </Typography>
-          <CryptoTable />
-          <CryptoNews />
+          <DynamicCryptoTable />
+          <DynamicCryptoNews />
         </Box>
       </Box>
     </div>

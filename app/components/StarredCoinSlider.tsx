@@ -125,11 +125,14 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     const handleStorageChange = () => {
       fetchWatchlistDataFromLocalStorage();
     };
-
-    window.addEventListener("starredCoinsUpdated", handleStorageChange);
+    if (typeof window !== "undefined") {
+      window.addEventListener("starredCoinsUpdated", handleStorageChange);
     return () => {
       window.removeEventListener("starredCoinsUpdated", handleStorageChange);
     };
+    }
+
+    
   }, []);
 
   return (
